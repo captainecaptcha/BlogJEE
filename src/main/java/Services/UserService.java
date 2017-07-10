@@ -28,6 +28,6 @@ public class UserService {
   }
 
   public List<User> List() {
-    return managerAccess.List();
+    return managerAccess.getList(User.class);
   }
 }

@@ -5,12 +5,14 @@ import Services.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.List;
 
 /**
  * Created by Yassine on 10/07/2017.
  */
 @ApplicationScoped
+@Named("userController")
 public class UserController {
 
   @Inject

@@ -5,6 +5,7 @@ import Entities.User;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
@@ -28,7 +29,9 @@ public class ManagerAccess {
         }
     }
 
-    public List<User> List() {
-        return null;
+    @Transactional
+    public <T> List getList(Class<T> type)
+    {
+        return em.createQuery("select a from " + type.getSimpleName() + " a").getResultList();
     }
 }
