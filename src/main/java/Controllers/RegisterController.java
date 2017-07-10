@@ -2,7 +2,6 @@ package Controllers;
 
 import Entities.User;
 import Services.UserService;
-import Views.HelloWorld;
 import jdk.nashorn.internal.runtime.Debug;
 import org.primefaces.context.RequestContext;
 
@@ -19,6 +18,7 @@ import javax.faces.context.FacesContext;
 /**
  * Created by Maximilien on 10/07/2017.
  */
+
 @ApplicationScoped
 @Named("RegisterController")
 public class RegisterController {
