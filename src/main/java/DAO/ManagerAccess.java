@@ -17,11 +17,14 @@ public class ManagerAccess {
     @PersistenceContext(unitName = "StarBlog")
     private EntityManager em;
 
+    @Transactional
     public <T> T Add(T obj)
     {
-        return em.merge(obj);
+        //return em.merge(obj);
+        em.persist(obj);
+        return obj;
     }
-
+    @Transactional
     public <T> boolean Update(T obj)
     {
         try {

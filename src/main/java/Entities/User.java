@@ -2,6 +2,7 @@ package Entities;
 
 import lombok.Data;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,6 +35,13 @@ public class User {
                 ", login='" + login + '\'' +
                 ", role='" + role + '\'' +
                 '}';
+    }
+
+    public User(String login, String password, Roles role)
+    {
+        this.login = login;
+        this.password = password;
+        this.role = role;
     }
 
     public enum Roles {

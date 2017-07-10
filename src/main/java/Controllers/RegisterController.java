@@ -16,6 +16,8 @@ import java.util.List;
 import org.primefaces.context.RequestContext;
 import static org.primefaces.component.keyboard.Keyboard.PropertyKeys.password;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by Maximilien on 10/07/2017.
  */
@@ -89,22 +91,29 @@ public class RegisterController {
         }
 
         User user = getUserFromLogin(username);
+
         if (user != null) {
             System.out.println("user déja existant");
-            loggedIn = true;
+            loggedIn = false;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
             try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        } else {
+        }
+        else {
             System.out.println("user non existant");
-            loggedIn = false;
+            loggedIn = true;
+            User newUser = new User(username, password, User.Roles.Admin);
+
+            User addeduser = Add(newUser);
+            //HttpSession session = request.getSession();
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration Error", "Invalid credentials");
         }
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("helloworld.xhtml");
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
