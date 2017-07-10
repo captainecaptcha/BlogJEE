@@ -15,6 +15,7 @@ import java.util.List;
 @Named("userController")
 public class UserController {
 
+
   @Inject
   UserService userService;
 
