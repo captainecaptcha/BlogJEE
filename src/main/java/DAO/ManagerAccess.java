@@ -1,12 +1,13 @@
 package DAO;
 
+import Entities.User;
 
-import lombok.Data;
-
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
-@Data
+@ApplicationScoped
 public class ManagerAccess {
     @PersistenceContext(unitName = "StarBlog")
     private EntityManager em;
@@ -14,17 +15,6 @@ public class ManagerAccess {
     public <T> T Add(T obj)
     {
         return em.merge(obj);
-    }
-
-    public <T> boolean Delete(T obj)
-    {
-        try {
-            em.remove(obj);
-            return true;
-        }catch (Exception e)
-        {
-            return false;
-        }
     }
 
     public <T> boolean Update(T obj)
@@ -36,5 +26,9 @@ public class ManagerAccess {
         {
             return false;
         }
+    }
+
+    public List<User> List() {
+        return null;
     }
 }

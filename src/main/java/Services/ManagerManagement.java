@@ -11,11 +11,6 @@ public class ManagerManagement {
         return managerAccess.Add(obj);
     }
 
-    public <T>boolean Delete(T obj)
-    {
-        return managerAccess.Delete(obj);
-    }
-
     public <T>boolean Update(T obj)
     {
         return managerAccess.Update(obj);
