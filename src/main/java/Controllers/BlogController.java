@@ -19,9 +19,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Maximilien on 10/07/2017.
- */
 @ApplicationScoped
 @Named("BlogController")
 public class BlogController {

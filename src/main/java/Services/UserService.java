@@ -30,4 +30,6 @@ public class UserService {
   public List<User> List() {
     return managerAccess.getList(User.class);
   }
+
+  public User getUserFromLogin(String username) {return managerAccess.getUserFromLogin(User.class, username); }
 }

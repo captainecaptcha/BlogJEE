@@ -2,6 +2,7 @@ package Controllers;
 
 import Entities.User;
 import Services.UserService;
+import Views.HelloWorld;
 import jdk.nashorn.internal.runtime.Debug;
 import org.primefaces.context.RequestContext;
 
@@ -18,7 +19,6 @@ import javax.faces.context.FacesContext;
 /**
  * Created by Maximilien on 10/07/2017.
  */
-
 @ApplicationScoped
 @Named("RegisterController")
 public class RegisterController {
@@ -38,10 +38,13 @@ public class RegisterController {
         return userService.Update(obj);
     }
 
+    public User getUserFromLogin(String username) {return userService.getUserFromLogin(username);}
+
     private String username;
 
     private String password;
 
+    private String repassword;
     public String getUsername() {
         return username;
     }
@@ -58,20 +61,48 @@ public class RegisterController {
         this.password = password;
     }
 
-    public void register(String username, String password) {
+
+    public String getRepassword() {
+        return password;
+    }
+
+    public void setRepassword(String password) {
+        this.password = password;
+    }
+
+    public void register() {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean loggedIn = false;
-        System.out.print("LOGLOGLOG");
 
-        if(username != null && username.equals("admin") && password != null && password.equals("admin")) {
+        if (username == null || password == null)
+        {
+            System.out.println("user ou mdp vide");
+            try {
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration error", "Invalid credentials");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User user = getUserFromLogin(username);
+        if (user != null) {
+            System.out.println("user déja existant");
             loggedIn = true;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
+            try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         } else {
+            System.out.println("user non existant");
             loggedIn = false;
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration Error", "Invalid credentials");
         }
-
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("helloworld.xhtml");
         } catch (IOException e) {
