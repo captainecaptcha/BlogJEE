@@ -2,3 +2,4 @@ target/*
 lib/*
 target/*
 .idea/*
+out/*
