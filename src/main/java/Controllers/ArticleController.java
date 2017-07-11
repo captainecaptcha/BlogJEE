@@ -84,6 +84,34 @@ public class ArticleController implements Serializable{
     }
   }
 
+  public String goedit()
+  {
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    Article article = (Article) session.getAttribute("article");
+    name = article.getName();
+    content = article.getContent();
+    return "editarticle";
+  }
+
+  public String edit()
+  {
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    Article article = (Article) session.getAttribute("article");
+    article.setContent(content);
+    article.setName(name);
+    articleService.Update(article);
+    content = null;
+    name = null;
+    return "articles";
+  }
+
+  public String cancel()
+  {
+     content = null;
+     name = null;
+     return "articles";
+  }
+
   public List<Article> List() {
     return articleService.List();
   }

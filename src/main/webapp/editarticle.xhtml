@@ -13,12 +13,15 @@
 
     <ui:define name="content">
         <p:panel id="basic" header="#{session.getAttribute('article').name}" footer="by user" style="margin-bottom:20px">
-            <h:panelGrid columns="2" cellpadding="10">
-                <h:outputText
-                        value="#{session.getAttribute('article').content}" />
-            </h:panelGrid>
             <h:form>
-            <p:commandButton value="EDIT Article" action="#{articleController.goedit()}"/>
+                <p:panelGrid columns="2">
+                    <p:outputLabel>New article:</p:outputLabel>
+                    <p:inputText value="#{articleController.name}"/>
+                    <p:outputLabel>Content:</p:outputLabel>
+                    <p:inputTextarea value="#{articleController.content}"/>
+                </p:panelGrid>
+                <p:commandButton value="Validate" action="#{articleController.edit()}"/>
+                <p:commandButton value="Cancel" action="#{articleController.cancel()}"/>
             </h:form>
         </p:panel>
     </ui:define>
