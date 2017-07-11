@@ -21,4 +21,11 @@ public class UserManagerAccess extends ManagerAccess<User> {
             return list.get(0);
         return null;
     }
+
+    @Transactional
+    public boolean UpdateUser(Class<User> type, int id, String username, String password)
+    {
+        em.createQuery("update type.getSimpleName() set login = \'" + username + "\' password = \'" + password + "\' where id = " + id).getResultList();
+        return true;
+    }
 }

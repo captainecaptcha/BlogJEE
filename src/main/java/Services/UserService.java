@@ -31,4 +31,6 @@ public class UserService {
   }
 
   public User getUserFromLogin(String username) {return userManagerAccess.getUserFromLogin(User.class, username); }
+
+  public boolean UpdateUser(int id, String username, String password) {return userManagerAccess.UpdateUser(User.class, id, username, password);}
 }

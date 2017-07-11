@@ -42,9 +42,5 @@ public abstract class ManagerAccess<T> {
         return em.createQuery("select a from " + type.getSimpleName() + " a").getResultList();
     }
 
-    @Transactional
-    public List UpdateUser(Class<T> type)
-    {
-        return em.createQuery("select a from " + type.getSimpleName() + " a").getResultList();
-    }
+
 }

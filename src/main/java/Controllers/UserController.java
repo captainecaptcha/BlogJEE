@@ -40,6 +40,8 @@ public class UserController {
 
   public User getUserFromLogin(String username) {return userService.getUserFromLogin(username);}
 
+  public boolean UpdateUser(Class<User> type, int id, String username, String password) { return userService.UpdateUser(id, username, password);}
+
   private String username;
 
   private String password;
@@ -113,6 +115,7 @@ public class UserController {
       session.setAttribute("user_login", addeduser.Getlogin());
       session.setAttribute("user_role", addeduser.Getrole());
       session.setAttribute("user_password", addeduser.GetPassword());
+      session.setAttribute("user", addeduser);
       message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration Error", "Invalid credentials");
       try {
 
@@ -154,6 +157,7 @@ public class UserController {
       session.setAttribute("user_login", userconnected.Getlogin());
       session.setAttribute("user_role", userconnected.Getrole());
       session.setAttribute("user_password", userconnected.GetPassword());
+      session.setAttribute("user", userconnected);
       message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
       try {
         FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
@@ -226,12 +230,12 @@ public class UserController {
 
     if (user != null) {
       message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
-      User newUser = new User(username, password, 0);
-      User addeduser = Add(newUser);
-      session.setAttribute("user_id", addeduser.Getid());
-      session.setAttribute("user_login", addeduser.Getlogin());
-      session.setAttribute("user_role", addeduser.Getrole());
-      session.setAttribute("user_password", addeduser.GetPassword());
+      session.setAttribute("user_id", user.Getid());
+      session.setAttribute("user_login", user.Getlogin());
+      session.setAttribute("user_role", user.Getrole());
+      session.setAttribute("user_password", user.GetPassword());
+      session.setAttribute("user", user);
+
       try {
         FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
       } catch (IOException e) {
