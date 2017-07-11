@@ -12,20 +12,20 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.primefaces.component.autocomplete.AutoComplete.PropertyKeys.type;
-@ApplicationScoped
-public class ManagerAccess {
+
+public abstract class ManagerAccess<T> {
     @PersistenceContext(unitName = "StarBlog")
     protected EntityManager em;
 
     @Transactional
-    public <T> T Add(T obj)
+    public T Add(T obj)
     {
         //return em.merge(obj);
         em.persist(obj);
         return obj;
     }
     @Transactional
-    public <T> boolean Update(T obj)
+    public boolean Update(T obj)
     {
         try {
             obj = em.merge(obj);
@@ -37,20 +37,8 @@ public class ManagerAccess {
     }
 
     @Transactional
-    public <T> List getList(Class<T> type)
+    public List getList(Class<T> type)
     {
         return em.createQuery("select a from " + type.getSimpleName() + " a").getResultList();
-    }
-
-    @Transactional
-    public <T> User getUserFromLogin(Class<T> type, String username)
-    {
-        //String sql = "select a from User where User.login = " + "\'" + username + "\'";
-        String sql = "select a from " + type.getSimpleName() + " a " + "WHERE login = " + "\'" + username + "\'";
-        Query query = em.createQuery(sql);
-        List<User> list = (List<User>) query.getResultList();
-        if (list.size() > 0)
-            return list.get(0);
-        return null;
     }
 }

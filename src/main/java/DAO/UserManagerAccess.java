@@ -8,11 +8,11 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
-public class UserManagerAccess extends ManagerAccess {
+public class UserManagerAccess extends ManagerAccess<User> {
 
 
     @Transactional
-    public <T> User getUserFromLogin(Class<T> type, String username)
+    public User getUserFromLogin(Class<User> type, String username)
     {
         String sql = "select a from User a WHERE a.login = " + "\'" + username + "\'";
         Query query = em.createQuery(sql);

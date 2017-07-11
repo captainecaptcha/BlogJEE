@@ -1,5 +1,7 @@
 package Services;
 
+import Controllers.ArticleController;
+import DAO.ArticleManagerAccess;
 import DAO.ManagerAccess;
 import Entities.Article;
 import Entities.Blog;
@@ -15,19 +17,19 @@ import java.util.List;
 public class ArticleService {
 
   @Inject
-  private ManagerAccess managerAccess;
+  private ArticleManagerAccess articleManagerAccess;
 
   public Article Add(Article obj)
   {
-    return managerAccess.Add(obj);
+    return articleManagerAccess.Add(obj);
   }
 
   public boolean Update(Article obj)
   {
-    return managerAccess.Update(obj);
+    return articleManagerAccess.Update(obj);
   }
 
   public List<Article> List() {
-    return managerAccess.getList(Article.class);
+    return articleManagerAccess.getList(Article.class);
   }
 }

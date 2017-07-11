@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
-public class BlogManagerAccess extends ManagerAccess {
+public class BlogManagerAccess extends ManagerAccess<Blog> {
 
     @Transactional
     public List<Blog> ListFromUser(int userId) {

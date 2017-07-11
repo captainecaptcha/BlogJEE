@@ -1,7 +1,6 @@
 package Services;
 
-import Controllers.UserController;
-import DAO.ManagerAccess;
+import DAO.UserManagerAccess;
 import Entities.User;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,21 +14,21 @@ import java.util.List;
 public class UserService {
 
   @Inject
-  private ManagerAccess managerAccess;
+  private UserManagerAccess userManagerAccess;
 
   public User Add(User obj)
   {
-    return managerAccess.Add(obj);
+    return userManagerAccess.Add(obj);
   }
 
   public boolean Update(User obj)
   {
-    return managerAccess.Update(obj);
+    return userManagerAccess.Update(obj);
   }
 
   public List<User> List() {
-    return managerAccess.getList(User.class);
+    return userManagerAccess.getList(User.class);
   }
 
-  public User getUserFromLogin(String username) {return managerAccess.getUserFromLogin(User.class, username); }
+  public User getUserFromLogin(String username) {return userManagerAccess.getUserFromLogin(User.class, username); }
 }
