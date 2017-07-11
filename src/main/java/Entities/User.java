@@ -37,6 +37,10 @@ public class User {
                 '}';
     }
 
+    public User() {
+
+    }
+
     public User(String login, String password, Roles role)
     {
         this.login = login;
@@ -44,7 +48,28 @@ public class User {
         this.role = role;
     }
 
+    public int Getid()
+    {
+        return id;
+    }
+
+    public String Getlogin()
+    {
+        return login;
+    }
+
+    public Roles Getrole()
+    {
+        return role;
+    }
+
+    public String GetPassword()
+    {
+        return password;
+    }
+
     public enum Roles {
         Admin,
         User
-    }}
+    }
+}

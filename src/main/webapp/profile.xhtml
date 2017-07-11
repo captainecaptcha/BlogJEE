@@ -11,11 +11,8 @@
 
 <title>Register</title>
 <body>
-<h:form>
-    <c:forEach var="item" items="#{BlogController.List()}">
-        <h:commandButton value="#{item}"/>
-    </c:forEach>
-</h:form>
+        <h:outputText value="#{session.getAttribute('user_id')}"/>
+        <h:outputText value="#{session.getAttribute('user_login')}"/>
 <script type="text/javascript">
     function handleLoginRequest(xhr, status, args) {
         if(args.validationFailed || !args.loggedIn) {

@@ -74,6 +74,7 @@ public class RegisterController {
 
     public void register() {
         RequestContext context = RequestContext.getCurrentInstance();
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         FacesMessage message = null;
         boolean loggedIn = false;
 
@@ -108,15 +109,17 @@ public class RegisterController {
             User newUser = new User(username, password, User.Roles.Admin);
 
             User addeduser = Add(newUser);
-            //HttpSession session = request.getSession();
+            session.setAttribute("user_id", addeduser.Getid());
+            session.setAttribute("user_login", addeduser.Getlogin());
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration Error", "Invalid credentials");
-        }
-        try {
+            try {
 
-            FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
+                FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
         //FacesContext.getCurrentInstance().addMessage(null, message);
         //context.addCallbackParam("loggedIn", loggedIn);
     }

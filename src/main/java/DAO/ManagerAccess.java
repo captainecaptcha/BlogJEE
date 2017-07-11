@@ -52,6 +52,5 @@ public class ManagerAccess {
         if (list.size() > 0)
             return list.get(0);
         return null;
-
     }
 }
