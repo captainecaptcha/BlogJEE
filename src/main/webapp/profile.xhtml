@@ -9,20 +9,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<title>Register</title>
+<title>Profile</title>
 <body>
         <h:outputText value="#{session.getAttribute('user_id')}"/>
         <h:outputText value="#{session.getAttribute('user_login')}"/>
-<script type="text/javascript">
-    function handleLoginRequest(xhr, status, args) {
-        if(args.validationFailed || !args.loggedIn) {
-            PF('dlg').jq.effect("shake", {times:5}, 100);
-        }
-        else {
-            PF('dlg').hide();
-            $('#loginLink').fadeOut();
-        }
-    }
-</script>
+
+        <h:form>
+            <p:commandButton value="Edit Profile" actionListener="#{userController.EditProfile()}"/>
+        </h:form>
 </body>
 </html>

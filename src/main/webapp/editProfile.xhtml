@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core" xml:lang="en" lang="en">
+
+<title>Register</title>
+<body>
+<h:form>
+    <p:dialog header="Edit Profile" widgetVar="dlg" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="password" value="Password:" />
+            <p:password id="password" required="true" label="password" value="#{userController.password}"/>
+            <h:outputLabel for="repassword" value="Retape your password:" />
+            <p:password id="repassword" required="true" label="repassword" value="#{userController.repassword}"/>
+            
+            <c:if test="${#{session.getAttribute('user_login')} == '0'}">
+                <h:outputLabel value="Role" />
+                <select name="sign" id="question" size="12">
+                <option value="0">Admin</option>
+                <option value="1">User</option>
+                </select>
+            </c:if>
+            
+            <f:facet name="footer">
+                <p:commandButton value="Register" actionListener="#{userController.edit()}"/>
+                <!-- update="growl" -->
+            </f:facet>
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+
+<h:form>
+    <p:commandButton value="Login" actionListener="#{userController.goLogin()}"/>
+</h:form>
+<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+</body>
+</html>

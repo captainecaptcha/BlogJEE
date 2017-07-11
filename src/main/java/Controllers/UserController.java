@@ -193,4 +193,13 @@ public class UserController {
       e.printStackTrace();
     }
   }
+
+  public void EditProfile()
+  {
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("editProfile.xhtml");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
