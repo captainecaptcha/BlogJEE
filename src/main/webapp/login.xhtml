@@ -15,10 +15,8 @@
             <h:outputLabel for="username" value="Username:" />
 
             <p:inputText id="username"  required="true" label="username" value="#{userController.username}"/>
-            <!-- <p:inputText id="username" value="#{RegisterController.setUsername(username)}" required="true" label="username" /> -->
             <h:outputLabel for="password" value="Password:" />
             <p:password id="password" required="true" label="password" value="#{userController.password}"/>
-            <!-- <p:password id="password" value="#{RegisterController.setPassword(password)}" required="true" label="password" /> -->
             <f:facet name="footer">
                 <p:commandButton value="Connect" actionListener="#{userController.login()}"/>
                 <!-- update="growl" -->
