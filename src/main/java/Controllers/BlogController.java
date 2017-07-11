@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,16 +37,6 @@ public class BlogController {
         this.name = name;
     }
 
-    private Blog currentBlog;
-
-    public void setCurrentBlog(Blog blog) {
-        this.currentBlog = blog;
-    }
-
-    public Blog getCurrentBlog() {
-        return currentBlog;
-    }
-
     public void archive(Blog blog)
     {
         blog.setArchived(true);
@@ -59,7 +50,9 @@ public class BlogController {
 
     public void showBlogs(Blog blog)
     {
-        currentBlog = blog;
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.setAttribute("blog", blog);
+
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("articles.xhtml");
         } catch (IOException e) {

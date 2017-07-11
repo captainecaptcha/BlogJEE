@@ -16,10 +16,10 @@
             <h:outputText value="#{session.getAttribute('user_role')}"></h:outputText>
             <h:outputLabel for="username" value="Username:" />
             <p:inputText id="username"  required="true" label="username" value="#{userController.username}"/>
-            <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" required="true" label="password" value="#{userController.password}"/>
-            <h:outputLabel for="repassword" value="Retape your password:" />
-            <p:password id="repassword" required="true" label="repassword" value="#{userController.repassword}"/>
+            <h:outputLabel for="name" value="Password:" />
+            <p:name id="name" required="true" label="name" value="#{userController.name}"/>
+            <h:outputLabel for="repassword" value="Retape your name:" />
+            <p:name id="repassword" required="true" label="repassword" value="#{userController.repassword}"/>
             
             <f:facet name="footer">
                 <p:commandButton value="Edit" actionListener="#{userController.edit()}"/>

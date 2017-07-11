@@ -4,15 +4,10 @@ import Entities.Article;
 import Entities.Blog;
 import Entities.User;
 import Services.ArticleService;
-import Services.BlogService;
-import org.primefaces.context.RequestContext;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,6 +18,37 @@ import java.util.List;
 public class ArticleController {
   @Inject
   ArticleService articleService;
+
+  private String name;
+
+  private String content;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public Article Add(Blog blog, String name, String content)
+  {
+    Article article = new Article();
+    article.setName(name);
+    article.setContent(content);
+    article.setBlog(blog);
+    this.name = "";
+    this.content = "";
+    return Add(article);
+  }
 
   public Article Add(Article obj) {
     return articleService.Add(obj);
@@ -35,4 +61,9 @@ public class ArticleController {
   public List<Article> List() {
     return articleService.List();
   }
+
+  public List<Article> ListFromBlog(int blogId) {
+    return articleService.ListFromBlog(blogId);
+  }
+
 }

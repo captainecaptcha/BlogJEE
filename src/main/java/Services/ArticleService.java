@@ -32,4 +32,8 @@ public class ArticleService {
   public List<Article> List() {
     return articleManagerAccess.getList(Article.class);
   }
+
+  public List<Article> ListFromBlog(int blogId) {
+    return articleManagerAccess.ListFromBlog(blogId);
+  }
 }

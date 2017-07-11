@@ -13,31 +13,26 @@
     </ui:define>
 
     <ui:define name="content">
+
+        <p:dataTable var="item" value="#{blogController.ListFromUser(session.getAttribute('user').Getid())}">
+
+            <p:column headerText="Name">
+                <p:commandButton value="#{item.name}" actionListener="#{blogController.showBlogs(item)}"/>
+            </p:column>
+
+            <p:column headerText="Action">
+                <p:commandButton value="Archive" actionListener="#{blogController.archive(item)}"/>
+            </p:column>
+
+        </p:dataTable>
+
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel>New blog:</h:outputLabel>
-                <h:inputText value="#{blogController.name}"/>
-                <h:commandButton value="Create" actionListener="#{blogController.Add(session.getAttribute('user'), blogController.name)}"/>
-            </h:panelGrid>
+            <p:panelGrid columns="2">
+                <p:outputLabel>New blog:</p:outputLabel>
+                <p:inputText value="#{blogController.name}"/>
+                <p:commandButton value="Create" actionListener="#{blogController.Add(session.getAttribute('user'), blogController.name)}"/>
+            </p:panelGrid>
         </h:form>
 
-        <table>
-            <!-- here should go some titles... -->
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-            <c:set var="list" value="#{blogController.ListFromUser(session.getAttribute('user').Getid())}"/>
-            <c:forEach begin="0" end= "${ list.size() }" step="1" varStatus="loopCounter" items="${list}" var="item">
-                <tr>
-                    <td>
-                        <h:commandButton value="#{item.name}" actionListener="#{blogController.showBlogs(item)}"/>
-                    </td>
-                    <td>
-                        <p:commandButton value="Archive" actionListener="#{blogController.archive(item)}"/>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
     </ui:define>
 </ui:composition>

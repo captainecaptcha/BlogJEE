@@ -14,4 +14,8 @@ public class ArticleManagerAccess extends ManagerAccess<Article> {
     public List<Article> getListOf(int blogId) {
         return em.createQuery("select a from Article a where a.blog.id = " + blogId).getResultList();
     }
+
+    public List<Article> ListFromBlog(int blogId) {
+        return em.createQuery("select a from Article a where a.blog.id = " + blogId + " and a.isArchived = false").getResultList();
+    }
 }
