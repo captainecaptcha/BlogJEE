@@ -20,221 +20,196 @@ import java.util.List;
 public class UserController implements Serializable {
 
 
-  @Inject
-  UserService userService;
+    @Inject
+    UserService userService;
 
-  public User Add(User obj)
-  {
-    return userService.Add(obj);
-  }
-
-  public List<User> List() {
-    return userService.List();
-  }
-
-  public User getUserFromLogin(String username) {return userService.getUserFromLogin(username);}
-
-  private String username;
-
-  private String password;
-
-  private boolean loggedIn;
-
-  public boolean isLoggedIn() {
-    return loggedIn;
-  }
-
-  public void setLoggedIn(boolean loggedIn) {
-    this.loggedIn = loggedIn;
-  }
-
-  private String repassword;
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-
-  public String getRepassword() {
-    return password;
-  }
-
-  public void setRepassword(String password) {
-    this.password = password;
-  }
-
-
-
-  public void register() {
-
-    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-
-    if (username == null || password == null)
-    {
-      loggedIn = false;
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
-        return;
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    User user = getUserFromLogin(username);
-
-    if (user != null) {
-      loggedIn = false;
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    else {
-      loggedIn = true;
-      User newUser = new User(username, password, 0);
-      session.setAttribute("user", Add(newUser));
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  public void login() {
-    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-
-    if (username == null || password == null)
-    {
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-        return;
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+    public User Add(User obj) {
+        return userService.Add(obj);
     }
 
-    User user = getUserFromLogin(username);
+    public List<User> List() {
+        return userService.List();
+    }
 
-    if (user != null) {
-      if (password.equals(user.getPassword())) {
-        this.loggedIn = true;
-        session.setAttribute("user", getUserFromLogin(username));
-        try {
-          FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
-        } catch (IOException e) {
-          e.printStackTrace();
+    public User getUserFromLogin(String username) {
+        return userService.getUserFromLogin(username);
+    }
+
+    private String username;
+
+    private String password;
+
+    private boolean loggedIn;
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    private String repassword;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getRepassword() {
+        return password;
+    }
+
+    public void setRepassword(String password) {
+        this.password = password;
+    }
+
+
+    public void register() {
+
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+
+        if (username == null || password == null || (password != repassword)) {
+            loggedIn = false;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-      }
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    else {
-      this.loggedIn = false;
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
+        User user = getUserFromLogin(username);
 
-  public void goRegister()
-  {
-    try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void goLogin()
-  {
-    try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void goProfile()
-  {
-    try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void EditProfile()
-  {
-    try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("editProfile.xhtml");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void edit() {
-
-    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-
-    if (username == null || password == null)
-    {
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("editProfile.xhtml");
-        return;
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+        if (user != null) {
+            loggedIn = false;
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            loggedIn = true;
+            User newUser = new User(username, password, 0);
+            session.setAttribute("user", Add(newUser));
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    User user = (User) session.getAttribute("user");
+    public String login() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
-    if (user != null) {
-      user.setLogin(username);
-      user.setPassword(password);
-      userService.Update(user);
-      user = getUserFromLogin(username);
-      session.setAttribute("user", user);
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    else {
-      try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-  }
+        if (username == null || password == null) {
+            return "login";
+        }
 
-  public void disconnect() {
+        User user = getUserFromLogin(username);
 
-    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-    session.invalidate();
-    try {
-      FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-    } catch (IOException e) {
-      e.printStackTrace();
+        if (user != null) {
+            if (password.equals(user.getPassword())) {
+                this.loggedIn = true;
+                session.setAttribute("user", getUserFromLogin(username));
+                return "profile";
+            }
+                return "login";
+        } else
+
+        {
+            this.loggedIn = false;
+            return "login";
+        }
     }
-  }
+
+    public void goRegister() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goLogin() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goProfile() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void EditProfile() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("editProfile.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void edit() {
+
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+
+        if (username == null || password == null) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("editProfile.xhtml");
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            user.setLogin(username);
+            user.setPassword(password);
+            userService.Update(user);
+            user = getUserFromLogin(username);
+            session.setAttribute("user", user);
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void disconnect() {
+
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

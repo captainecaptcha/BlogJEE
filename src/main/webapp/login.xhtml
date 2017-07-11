@@ -18,7 +18,7 @@
             <h:outputLabel for="password" value="Password:" />
             <p:password id="password" required="true" label="password" value="#{userController.password}"/>
             <f:facet name="footer">
-                <p:commandButton value="Connect" actionListener="#{userController.login()}"/>
+                <p:commandButton value="Connect" action="#{userController.login()}"/>
                 <!-- update="growl" -->
             </f:facet>
         </h:panelGrid>
