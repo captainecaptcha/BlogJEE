@@ -13,12 +13,16 @@
 
     <h:body>
         <div>
-            <a href="blogs.xhtml">Blogs</a>
-            <a href="profile.xhtml">Profile</a>
-            <h:form>
+            <h:form rendered="#{session.getAttribute('user') eq null}">
+                <a href="login.xhtml">Login</a>
+                <a href="register.xhtml">Register</a>
+            </h:form>
+            <h:form rendered="#{session.getAttribute('user') ne null}">
+                <a href="index.xhtml">Index</a>
+                <a href="blogs.xhtml">Blogs</a>
+                <a href="profile.xhtml">Profile</a>
                 <h:commandLink name="index" value="Logout" action="#{userController.disconnect()}" />
             </h:form>
-            <a href="gallery.xhtml">Gallery</a>
         </div>
 
         <div id="content">

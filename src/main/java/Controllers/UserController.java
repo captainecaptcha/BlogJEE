@@ -69,19 +69,18 @@ public class UserController implements Serializable {
 
 
     public String getRepassword() {
-        return password;
+        return repassword;
     }
 
     public void setRepassword(String password) {
-        this.password = password;
+        this.repassword = password;
     }
 
 
     public void register() {
-
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
-        if (username == null || password == null || (password != repassword)) {
+        if (username == null || password == null || (!password.equals(repassword))) {
             loggedIn = false;
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");

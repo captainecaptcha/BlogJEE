@@ -14,6 +14,9 @@ public class Comment {
     private Integer id;
 
     @Column
+    private String title;
+
+    @Column
     private String content;
 
     @Column
@@ -27,6 +30,14 @@ public class Comment {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
