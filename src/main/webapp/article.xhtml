@@ -12,13 +12,13 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel id="basic" header="#{session.getAttribute('article').name}" footer="by user" style="margin-bottom:20px">
+        <p:panel id="basic" header="#{session.getAttribute('article').name}" footer="by #{userController.getUserById(session.getAttribute('article').getBlog().getUser().getId()).login}" style="margin-bottom:20px">
             <h:panelGrid columns="2" cellpadding="10">
                 <h:outputText
                         value="#{session.getAttribute('article').content}" />
             </h:panelGrid>
-            <h:form>
-            <p:commandButton value="EDIT Article" action="#{articleController.goedit()}"/>
+            <h:form rendered="#{session.getAttribute('user').id eq session.getAttribute('article').getBlog().getUser().getId()}">
+                <p:commandButton value="Edit" action="#{articleController.goedit()}"/>
             </h:form>
         </p:panel>
 

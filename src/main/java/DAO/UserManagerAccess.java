@@ -20,4 +20,13 @@ public class UserManagerAccess extends ManagerAccess<User> {
             return list.get(0);
         return null;
     }
+
+  public User getUserById(int userId) {
+      String sql = "select a from User a WHERE a.id = " + userId;
+      Query query = em.createQuery(sql);
+      List<User> list = (List<User>) query.getResultList();
+      if (list.size() > 0)
+          return list.get(0);
+      return null;
+  }
 }

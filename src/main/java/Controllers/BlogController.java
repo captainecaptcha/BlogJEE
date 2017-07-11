@@ -19,13 +19,18 @@ public class BlogController implements Serializable {
     @Inject
     BlogService blogService;
 
-    public Blog Add(User user, String name)
+    public void Add(User user, String name)
     {
         Blog blog = new Blog();
         blog.setName(name);
         blog.setUser(user);
         this.name = "";
-        return blogService.Add(blog);
+        blogService.Add(blog);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("blogs.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String name;

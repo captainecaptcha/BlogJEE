@@ -20,6 +20,9 @@
                 <p:commandButton value="#{item.name}" actionListener="#{blogController.showArticlesFromBlog(item)}"/>
             </p:column>
 
+            <p:column headerText="Owner">
+                <p:outputLabel value="#{userController.getUserById(item.getUser().getId()).login}"/>
+            </p:column>
         </p:dataTable>
 
     </ui:define>

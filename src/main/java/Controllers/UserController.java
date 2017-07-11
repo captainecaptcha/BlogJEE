@@ -35,6 +35,10 @@ public class UserController implements Serializable {
         return userService.getUserFromLogin(username);
     }
 
+    public User getUserById(int userId) {
+        return userService.getUserById(userId);
+    }
+
     private String username;
 
     private String password;

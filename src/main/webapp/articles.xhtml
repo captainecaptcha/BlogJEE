@@ -24,7 +24,7 @@
             </p:column>
         </p:dataTable>
 
-        <h:form>
+        <h:form rendered="#{session.getAttribute('user').id eq session.getAttribute('blog').getUser().getId()}">
             <p:panelGrid columns="2">
                 <p:outputLabel>New article:</p:outputLabel>
                 <p:inputText value="#{articleController.name}"/>

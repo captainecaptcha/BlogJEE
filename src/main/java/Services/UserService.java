@@ -33,4 +33,8 @@ public class UserService implements Serializable {
   }
 
   public User getUserFromLogin(String username) {return userManagerAccess.getUserFromLogin(username); }
+
+  public User getUserById(int userId) {
+    return userManagerAccess.getUserById(userId);
+  }
 }
