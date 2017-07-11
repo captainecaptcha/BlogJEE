@@ -10,8 +10,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -43,27 +45,23 @@ public class CommentController implements Serializable{
     this.content = content;
   }
 
-  public Comment Add(Article article, User user, String name)
+  public void Add(Article article, User user, String name, String content)
   {
     Comment comment = new Comment();
-    comment.setContent(name);
+    comment.setTitle(name);
+    comment.setContent(content);
+    comment.setDate(java.util.Date.from(Instant.now()));
     comment.setArticle(article);
     comment.setUser(user);
+    this.name = "";
     this.content = "";
-    return commentService.Add(comment);
+    commentService.Add(comment);
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("article.xhtml");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
-
-
-
-  /*public void AddComment()
-  {
-    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-    Comment comment = new Comment();
-    comment.setArticle((Article) session.getAttribute('article'));
-    comment.setUser((Article) session.getAttribute('user'));
-    comment.setContent(content);
-    comment.setTitle(name);
-  }*/
 
   public Comment Add(Comment obj) {
     return commentService.Add(obj);
