@@ -1,6 +1,7 @@
 package Controllers;
 
 import Entities.Blog;
+import Entities.User;
 import Services.BlogService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -16,9 +17,11 @@ public class BlogController {
     @Inject
     BlogService blogService;
 
-    public void Add(int userId, String name)
+    public void Add(User user, String name)
     {
         Blog blog = new Blog();
+        blog.setName(name);
+        blog.setUser(user);
         blogService.Add(blog);
     }
 

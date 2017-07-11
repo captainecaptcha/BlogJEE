@@ -10,8 +10,13 @@
       xmlns:p="http://primefaces.org/ui">
 
 <head>
-    <title>Article</title>
+    <title>StarBlog - Articles</title>
+
+    <ui:composition template="header.xhtml">
+
+    </ui:composition>
 </head>
+
 <body>
 <h:form>
     <c:forEach var="item" items="#{ArticleController.List()}">
