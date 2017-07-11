@@ -15,7 +15,7 @@ import static org.primefaces.component.autocomplete.AutoComplete.PropertyKeys.ty
 @ApplicationScoped
 public class ManagerAccess {
     @PersistenceContext(unitName = "StarBlog")
-    private EntityManager em;
+    protected EntityManager em;
 
     @Transactional
     public <T> T Add(T obj)

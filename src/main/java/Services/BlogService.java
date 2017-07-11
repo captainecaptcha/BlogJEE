@@ -1,6 +1,6 @@
 package Services;
 
-import DAO.ManagerAccess;
+import DAO.BlogManagerAccess;
 import Entities.Blog;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,19 +14,23 @@ import java.util.List;
 public class BlogService {
 
   @Inject
-  private ManagerAccess managerAccess;
+  private BlogManagerAccess blogManagerAccess;
 
   public Blog Add(Blog obj)
   {
-    return managerAccess.Add(obj);
+    return blogManagerAccess.Add(obj);
   }
 
   public boolean Update(Blog obj)
   {
-    return managerAccess.Update(obj);
+    return blogManagerAccess.Update(obj);
   }
 
   public List<Blog> List() {
-    return managerAccess.getList(Blog.class);
+    return blogManagerAccess.getList(Blog.class);
+  }
+
+  public List<Blog> ListFromUser(int userId) {
+    return blogManagerAccess.ListFromUser(userId);
   }
 }

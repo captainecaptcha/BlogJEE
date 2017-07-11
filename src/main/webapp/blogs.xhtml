@@ -14,8 +14,8 @@
 </head>
 <body>
 <h:form>
-    <c:forEach var="item" items="#{BlogController.List()}">
-        <h:commandButton value="#{item}"/>
+    <c:forEach var="item" items="#{BlogController.ListFromUser(session.getAttribute('user_id'))}">
+        <h:commandButton value="#{item}" actionListener="#{BlogController.showBlogs(item)}"/>
     </c:forEach>
 </h:form>
 </body>
