@@ -48,6 +48,13 @@ public class BlogController {
 
     public void archive(Blog blog)
     {
+        blog.setArchived(true);
+        blogService.Update(blog);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("blogs.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showBlogs(Blog blog)

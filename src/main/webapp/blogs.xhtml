@@ -28,7 +28,7 @@
                 <th>Actions</th>
             </tr>
             <c:set var="list" value="#{blogController.ListFromUser(session.getAttribute('user').Getid())}"/>
-            <c:forEach begin="1" end= "${ list.size() }" step="1" varStatus="loopCounter" items="${list}" var="item">
+            <c:forEach begin="0" end= "${ list.size() }" step="1" varStatus="loopCounter" items="${list}" var="item">
                 <tr>
                     <td>
                         <h:commandButton value="#{item.name}" actionListener="#{blogController.showBlogs(item)}"/>
