@@ -15,9 +15,7 @@
 
         <p:dataTable var="item" value="#{articleController.ListFromBlog(session.getAttribute('blog').getId())}">
             <p:column headerText="Name">
-                <p:button outcome="articles" value="#{item.name}" icon="ui-icon-star">
-                    <f:param name="id" value="#{item.id}" />
-                </p:button>
+                <p:commandButton value="#{item.id}" actionListener="#{articleController.ShowArticle(item)}"/>
             </p:column>
             <p:column headerText="Action">
                 <h:form rendered="#{session.getAttribute('user').id eq item.blog.user.id}">
