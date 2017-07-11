@@ -49,7 +49,7 @@ public class BlogController implements Serializable {
         }
     }
 
-    public void showBlogs(Blog blog)
+    public void showArticlesFromBlog(Blog blog)
     {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.setAttribute("blog", blog);
@@ -59,7 +59,6 @@ public class BlogController implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public Blog Add(Blog obj) {

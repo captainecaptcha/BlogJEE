@@ -3,6 +3,7 @@
 <ui:composition template="template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
@@ -14,31 +15,25 @@
 
         <p:dataTable var="item" value="#{articleController.ListFromBlog(session.getAttribute('blog').getId())}">
             <p:column headerText="Name">
-                <p:commandButton value="#{item.name}" actionListener="#{blogController.showBlogs(item)}"/>
+                <p:button outcome="articles" value="#{item.name}" icon="ui-icon-star">
+                    <f:param name="id" value="#{item.id}" />
+                </p:button>
             </p:column>
             <p:column headerText="Action">
-                <p:commandButton value="Archive" actionListener="#{blogController.archive(item)}"/>
+                <h:form rendered="#{session.getAttribute('user').id eq item.blog.user.id}">
+                    <p:commandButton value="Archive" actionListener="#{articleController.archive(item)}"/>
+                </h:form>
             </p:column>
         </p:dataTable>
 
         <h:form>
             <p:panelGrid columns="2">
                 <p:outputLabel>New article:</p:outputLabel>
-                <p:inputText value="#{blogController.name}"/>
+                <p:inputText value="#{articleController.name}"/>
                 <p:outputLabel>Content:</p:outputLabel>
                 <p:inputTextarea value="#{articleController.content}"/>
-                <p:commandButton value="Create" actionListener="#{blogController.Add(session.getAttribute('user'), blogController.name)}"/>
-            </p:panelGrid>
-        </h:form>
-
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel>New article:</h:outputLabel>
-                <h:inputText value="#{articleController.name}"/>
-                <h:outputLabel>Content:</h:outputLabel>
-                <h:inputTextarea value="#{articleController.content}"/>
                 <h:commandButton value="Create" actionListener="#{articleController.Add(session.getAttribute('blog'), articleController.name, articleController.content)}"/>
-            </h:panelGrid>
+            </p:panelGrid>
         </h:form>
 
     </ui:define>

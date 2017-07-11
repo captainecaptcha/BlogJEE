@@ -3,6 +3,7 @@ package Entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -14,6 +15,9 @@ public class Comment {
 
     @Column
     private String content;
+
+    @Column
+    private Date date;
 
     @ManyToOne
     private User user;
@@ -31,6 +35,14 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public User getUser() {

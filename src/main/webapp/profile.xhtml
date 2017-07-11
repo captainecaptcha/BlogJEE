@@ -10,8 +10,7 @@
 </ui:define>
 
 <ui:define name="content">
-    <h:outputText value="#{session.getAttribute('user').getId()}"/>
-    <h:outputText value="#{session.getAttribute('user').getLogin()}"/>
+    <h:outputText value="Welcome #{session.getAttribute('user').getLogin()}"/>
 
     <h:form>
         <p:commandButton value="Edit Profile" actionListener="#{userController.EditProfile()}"/>

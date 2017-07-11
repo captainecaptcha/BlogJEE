@@ -14,7 +14,7 @@
 
         <p:dataTable var="item" value="#{blogController.ListFromUser(session.getAttribute('user').getId())}">
             <p:column headerText="Name">
-                <p:commandButton value="#{item.name}" actionListener="#{blogController.showBlogs(item)}"/>
+                <p:commandButton value="#{item.name}" actionListener="#{blogController.showArticlesFromBlog(item)}"/>
             </p:column>
             <p:column headerText="Action">
                 <p:commandButton value="Archive" actionListener="#{blogController.archive(item)}"/>

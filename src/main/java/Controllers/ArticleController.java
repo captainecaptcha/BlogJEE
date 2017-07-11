@@ -5,8 +5,11 @@ import Entities.Blog;
 import Services.ArticleService;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -39,6 +42,17 @@ public class ArticleController implements Serializable{
     this.content = content;
   }
 
+  public void archive(Article article)
+  {
+    article.setArchived(true);
+    articleService.Update(article);
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("articles.xhtml");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   public Article Add(Blog blog, String name, String content)
   {
     Article article = new Article();
@@ -56,6 +70,18 @@ public class ArticleController implements Serializable{
 
   public boolean Update(Article obj) {
     return articleService.Update(obj);
+  }
+
+  public void ShowArticle(Article obj)
+  {
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    session.setAttribute("article", obj);
+
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("article.xhtml");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public List<Article> List() {

@@ -55,5 +55,4 @@ public class CommentController implements Serializable{
   public List<Comment> ListFromArticle(int articleId) {
     return commentService.ListFromArticle(articleId);
   }
-
 }
