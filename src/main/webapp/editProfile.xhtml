@@ -22,7 +22,7 @@
             <p:password id="repassword" required="true" label="repassword" value="#{userController.repassword}"/>
             
             <f:facet name="footer">
-                <p:commandButton value="Register" actionListener="#{userController.edit()}"/>
+                <p:commandButton value="Edit" actionListener="#{userController.edit()}"/>
                 <!-- update="growl" -->
             </f:facet>
         </h:panelGrid>
@@ -30,7 +30,7 @@
 </h:form>
 
 <h:form>
-    <p:commandButton value="Login" actionListener="#{userController.goLogin()}"/>
+    <p:commandButton value="Cancel" actionListener="#{userController.goProfile()}"/>
 </h:form>
 <script type="text/javascript">
     function handleLoginRequest(xhr, status, args) {

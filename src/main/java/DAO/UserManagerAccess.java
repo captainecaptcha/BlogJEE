@@ -22,10 +22,13 @@ public class UserManagerAccess extends ManagerAccess<User> {
         return null;
     }
 
-    @Transactional
-    public boolean UpdateUser(Class<User> type, int id, String username, String password)
+    /*@Transactional
+    public <T> UpdateUser(T obj)
     {
-        em.createQuery("update type.getSimpleName() set login = \'" + username + "\' password = \'" + password + "\' where id = " + id).getResultList();
+        System.out.println("UpdateUser !");
+
+        em.merge(user);
+        System.out.println("PASSED!!!");
         return true;
-    }
+    }*/
 }

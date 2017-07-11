@@ -40,7 +40,7 @@ public class UserController {
 
   public User getUserFromLogin(String username) {return userService.getUserFromLogin(username);}
 
-  public boolean UpdateUser(Class<User> type, int id, String username, String password) { return userService.UpdateUser(id, username, password);}
+  public boolean UpdateUser(User user) { return userService.UpdateUser(user);}
 
   private String username;
 
@@ -151,16 +151,28 @@ public class UserController {
 
     if (user != null) {
       System.out.println("user déja existant");
-      loggedIn = true;
-      User userconnected = getUserFromLogin(username);
-      session.setAttribute("user_id", userconnected.Getid());
-      session.setAttribute("user_login", userconnected.Getlogin());
-      session.setAttribute("user_role", userconnected.Getrole());
-      session.setAttribute("user_password", userconnected.GetPassword());
-      session.setAttribute("user", userconnected);
-      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
+      System.out.println("password entered: " + password);
+      System.out.println("password user: " + user.GetPassword());
+      if (password.equals(user.GetPassword())) {
+        System.out.println("ENTERED");
+        loggedIn = true;
+        User userconnected = getUserFromLogin(username);
+        session.setAttribute("user_id", userconnected.Getid());
+        session.setAttribute("user_login", userconnected.Getlogin());
+        session.setAttribute("user_role", userconnected.Getrole());
+        session.setAttribute("user_password", userconnected.GetPassword());
+        session.setAttribute("user", userconnected);
+        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
+        try {
+          FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+      message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Connection Error", "Invalid password");
       try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -170,6 +182,7 @@ public class UserController {
       loggedIn = false;
       message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Connection Error", "Invalid credentials");
       try {
+        FacesContext.getCurrentInstance().addMessage(null, message);
         FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
       } catch (IOException e) {
         e.printStackTrace();
@@ -193,6 +206,15 @@ public class UserController {
   {
     try {
       FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void goProfile()
+  {
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -227,27 +249,35 @@ public class UserController {
 
     User user = getUserFromLogin(
             (String)session.getAttribute("user_login"));
+    String loginUserConnected = (String)session.getAttribute("user_login");
 
+    System.out.println(user.Getid());
+    System.out.println(user.Getlogin());
+    System.out.println(user.GetPassword());
+    System.out.println(user.Getrole());
     if (user != null) {
-      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
+      System.out.println("user déja existant");
+      user.SetLogin(username);
+      user.SetPassword(password);
+      UpdateUser(user);
+      user = getUserFromLogin(username);
       session.setAttribute("user_id", user.Getid());
       session.setAttribute("user_login", user.Getlogin());
       session.setAttribute("user_role", user.Getrole());
       session.setAttribute("user_password", user.GetPassword());
       session.setAttribute("user", user);
-
+      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
       try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
     else {
-
-      message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration Error", "Invalid credentials");
+      System.out.println("user non existant");
+      message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Connection Error", "Invalid credentials");
       try {
-
-        FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
       } catch (IOException e) {
         e.printStackTrace();
       }

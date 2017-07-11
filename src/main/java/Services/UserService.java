@@ -1,5 +1,6 @@
 package Services;
 
+import DAO.ManagerAccess;
 import DAO.UserManagerAccess;
 import Entities.User;
 
@@ -15,6 +16,9 @@ public class UserService {
 
   @Inject
   private UserManagerAccess userManagerAccess;
+
+  @Inject
+  private ManagerAccess<User> managerAccess;
 
   public User Add(User obj)
   {
@@ -32,5 +36,5 @@ public class UserService {
 
   public User getUserFromLogin(String username) {return userManagerAccess.getUserFromLogin(User.class, username); }
 
-  public boolean UpdateUser(int id, String username, String password) {return userManagerAccess.UpdateUser(User.class, id, username, password);}
+  public boolean UpdateUser(User user) {return managerAccess.Update(user);}
 }
