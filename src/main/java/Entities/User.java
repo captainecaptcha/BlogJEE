@@ -2,7 +2,6 @@ package Entities;
 
 import lombok.Data;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.List;
 
@@ -48,40 +47,48 @@ public class User {
         this.role = role;
     }
 
-    public int Getid()
-    {
+    public Integer getId() {
         return id;
     }
 
-    public String Getlogin()
-    {
+    public String getLogin() {
         return login;
     }
 
-    public int Getrole()
-    {
-        return role;
-    }
-
-    public String GetPassword()
-    {
-        return password;
-    }
-
-
-    public void SetLogin(String login)
-    {
+    public void setLogin(String login) {
         this.login = login;
     }
 
-    public void SetRole(int role)
-    {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
         this.role = role;
     }
 
-    public void SetPassword(String password)
-    {
-        this.password = password;
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public enum Roles {

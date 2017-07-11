@@ -18,6 +18,9 @@ public class Comment {
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private Article article;
+
     public Integer getId() {
         return id;
     }
@@ -36,5 +39,13 @@ public class Comment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 }

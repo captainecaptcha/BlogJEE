@@ -2,11 +2,11 @@ package DAO;
 
 import Entities.Blog;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@ApplicationScoped
+@RequestScoped
 public class BlogManagerAccess extends ManagerAccess<Blog> {
 
     @Transactional

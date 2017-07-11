@@ -4,14 +4,16 @@ import DAO.BlogManagerAccess;
 import Entities.Blog;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Yassine on 10/07/2017.
  */
-@ApplicationScoped
-public class BlogService {
+@SessionScoped
+public class BlogService implements Serializable {
 
   @Inject
   private BlogManagerAccess blogManagerAccess;

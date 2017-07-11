@@ -4,17 +4,18 @@ import Entities.Blog;
 import Entities.User;
 import Services.BlogService;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
-@ApplicationScoped
+@SessionScoped
 @Named("blogController")
-public class BlogController {
+public class BlogController implements Serializable {
     @Inject
     BlogService blogService;
 
@@ -63,10 +64,6 @@ public class BlogController {
 
     public Blog Add(Blog obj) {
         return blogService.Add(obj);
-    }
-
-    public boolean Update(Blog obj) {
-        return blogService.Update(obj);
     }
 
     public List<Blog> List() {

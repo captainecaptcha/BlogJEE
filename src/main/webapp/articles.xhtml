@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
@@ -12,6 +11,26 @@
     </ui:define>
 
     <ui:define name="content">
+
+        <p:dataTable var="item" value="#{articleController.ListFromBlog(session.getAttribute('blog').getId())}">
+            <p:column headerText="Name">
+                <p:commandButton value="#{item.name}" actionListener="#{blogController.showBlogs(item)}"/>
+            </p:column>
+            <p:column headerText="Action">
+                <p:commandButton value="Archive" actionListener="#{blogController.archive(item)}"/>
+            </p:column>
+        </p:dataTable>
+
+        <h:form>
+            <p:panelGrid columns="2">
+                <p:outputLabel>New article:</p:outputLabel>
+                <p:inputText value="#{blogController.name}"/>
+                <p:outputLabel>Content:</p:outputLabel>
+                <p:inputTextarea value="#{articleController.content}"/>
+                <p:commandButton value="Create" actionListener="#{blogController.Add(session.getAttribute('user'), blogController.name)}"/>
+            </p:panelGrid>
+        </h:form>
+
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel>New article:</h:outputLabel>
@@ -22,28 +41,5 @@
             </h:panelGrid>
         </h:form>
 
-        <table>
-            <!-- here should go some titles... -->
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-            <c:set var="list" value="#{articleController.ListFromBlog(session.getAttribute('blog').Getid())}"/>
-            <c:forEach begin="0" end= "${ list.size() }" step="1" varStatus="loopCounter" items="${list}" var="item">
-                <tr>
-                    <td>
-                        <h:commandButton value="#{item.name}" actionListener="#{blogController.showBlogs(item)}"/>
-                    </td>
-                    <td>
-                        <p:commandButton value="Archive" actionListener="#{blogController.archive(item)}"/>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        <h:form>
-            <c:forEach var="item" items="#{articleController.List()}">
-                <h:commandButton value="#{item}"/>
-            </c:forEach>
-        </h:form>
     </ui:define>
 </ui:composition>

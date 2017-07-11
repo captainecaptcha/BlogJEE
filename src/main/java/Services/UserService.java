@@ -1,18 +1,19 @@
 package Services;
 
-import DAO.ManagerAccess;
 import DAO.UserManagerAccess;
 import Entities.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Yassine on 10/07/2017.
  */
-@ApplicationScoped
-public class UserService {
+@SessionScoped
+public class UserService implements Serializable {
 
   @Inject
   private UserManagerAccess userManagerAccess;
@@ -31,7 +32,5 @@ public class UserService {
     return userManagerAccess.getList(User.class);
   }
 
-  public User getUserFromLogin(String username) {return userManagerAccess.getUserFromLogin(User.class, username); }
-
-  public boolean UpdateUser(User user) {return userManagerAccess.Update(user);}
+  public User getUserFromLogin(String username) {return userManagerAccess.getUserFromLogin(username); }
 }

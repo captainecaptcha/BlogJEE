@@ -1,17 +1,9 @@
 package DAO;
 
-import Entities.User;
-
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
-import java.util.List;
-
-import static org.primefaces.component.autocomplete.AutoComplete.PropertyKeys.type;
 
 public abstract class ManagerAccess<T> {
     @PersistenceContext(unitName = "StarBlog")

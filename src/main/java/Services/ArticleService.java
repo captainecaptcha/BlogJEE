@@ -1,20 +1,19 @@
 package Services;
 
-import Controllers.ArticleController;
 import DAO.ArticleManagerAccess;
-import DAO.ManagerAccess;
 import Entities.Article;
-import Entities.Blog;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Yassine on 10/07/2017.
  */
-@ApplicationScoped
-public class ArticleService {
+@SessionScoped
+public class ArticleService implements Serializable {
 
   @Inject
   private ArticleManagerAccess articleManagerAccess;

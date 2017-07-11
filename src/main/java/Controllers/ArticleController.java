@@ -2,20 +2,20 @@ package Controllers;
 
 import Entities.Article;
 import Entities.Blog;
-import Entities.User;
 import Services.ArticleService;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Maximilien on 10/07/2017.
  */
-@ApplicationScoped
+@SessionScoped
 @Named("articleController")
-public class ArticleController {
+public class ArticleController implements Serializable{
   @Inject
   ArticleService articleService;
 
@@ -47,7 +47,7 @@ public class ArticleController {
     article.setBlog(blog);
     this.name = "";
     this.content = "";
-    return Add(article);
+    return articleService.Add(article);
   }
 
   public Article Add(Article obj) {
