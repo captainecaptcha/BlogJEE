@@ -29,5 +29,14 @@
                 </h:panelGrid>
             </p:panel>
         </c:forEach>
+        <h:form>
+            <p:panelGrid columns="2">
+                <p:outputLabel>New Comment</p:outputLabel>
+                <p:inputText value="#{commentController.name}"/>
+                <p:outputLabel>Content:</p:outputLabel>
+                <p:inputTextarea value="#{commentController.content}"/>
+                <h:commandButton value="Create" action="#{commentController.Add(session.getAttribute('article'), session.getAttribute('user'), commentController.name)}"/>
+            </p:panelGrid>
+        </h:form>
     </ui:define>
 </ui:composition>
