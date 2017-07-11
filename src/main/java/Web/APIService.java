@@ -2,6 +2,7 @@ package Web;
 
 import Entities.Article;
 import Entities.Blog;
+import Services.ArticleService;
 import Services.BlogService;
 import Services.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -22,6 +23,9 @@ import java.util.List;
 public class APIService {
     @Inject
     private BlogService blogServices;
+
+    @Inject
+    private ArticleService articleServices;
 
     @Inject
     private UserService userServices;
@@ -46,17 +50,17 @@ public class APIService {
     @GET
     @Path("/blogs/{id}")
     public String getPosts(@PathParam("id") int id) {
-        /*ObjectMapper mapper = new ObjectMapper();
-        List<Article> posts = postAccess.get().getListByBlogId(id);
+        ObjectMapper mapper = new ObjectMapper();
+        List<Article> articles = articleServices.ListFromBlog(id);
         ArrayList res = new ArrayList();
-        for (Post post : posts)
-            res.add(post.getName());
+        for (Article article : articles)
+            res.add(article.getName());
 
         try {
             return mapper.writeValueAsString(res);
         } catch (IOException e1) {
             e1.printStackTrace();
-        }*/
+        }
         return "";
     }
 }
