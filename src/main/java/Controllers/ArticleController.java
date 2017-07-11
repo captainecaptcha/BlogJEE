@@ -53,7 +53,7 @@ public class ArticleController implements Serializable{
     }
   }
 
-  public Article Add(Blog blog, String name, String content)
+  public void Add(Blog blog, String name, String content)
   {
     Article article = new Article();
     article.setName(name);
@@ -61,7 +61,12 @@ public class ArticleController implements Serializable{
     article.setBlog(blog);
     this.name = "";
     this.content = "";
-    return articleService.Add(article);
+    articleService.Add(article);
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("articles.xhtml");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public Article Add(Article obj) {
