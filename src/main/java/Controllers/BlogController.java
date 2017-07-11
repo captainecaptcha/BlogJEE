@@ -46,6 +46,10 @@ public class BlogController {
         return currentBlog;
     }
 
+    public void archive(Blog blog)
+    {
+    }
+
     public void showBlogs(Blog blog)
     {
         currentBlog = blog;
