@@ -20,7 +20,7 @@ public class User {
     private String password;
 
     @Column
-    private Roles role;
+    private int role;
 
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "user")
     private List<Entities.Blog> blogs;
@@ -41,7 +41,7 @@ public class User {
 
     }
 
-    public User(String login, String password, Roles role)
+    public User(String login, String password, int role)
     {
         this.login = login;
         this.password = password;
@@ -58,7 +58,7 @@ public class User {
         return login;
     }
 
-    public Roles Getrole()
+    public int Getrole()
     {
         return role;
     }
@@ -66,6 +66,22 @@ public class User {
     public String GetPassword()
     {
         return password;
+    }
+
+
+    public void SetLogin(String login)
+    {
+        this.login = login;
+    }
+
+    public void SetRole(int role)
+    {
+        this.role = role;
+    }
+
+    public void SetPassword(String password)
+    {
+        this.password = password;
     }
 
     public enum Roles {

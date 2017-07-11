@@ -12,18 +12,14 @@
 <h:form>
     <p:dialog header="Edit Profile" widgetVar="dlg" resizable="false">
         <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputText value="#{session.getAttribute('user_role')}"></h:outputText>
+            <h:outputLabel for="username" value="Username:" />
+            <p:inputText id="username"  required="true" label="username" value="#{userController.username}"/>
             <h:outputLabel for="password" value="Password:" />
             <p:password id="password" required="true" label="password" value="#{userController.password}"/>
             <h:outputLabel for="repassword" value="Retape your password:" />
             <p:password id="repassword" required="true" label="repassword" value="#{userController.repassword}"/>
-            
-            <c:if test="${#{session.getAttribute('user_login')} == '0'}">
-                <h:outputLabel value="Role" />
-                <select name="sign" id="question" size="12">
-                <option value="0">Admin</option>
-                <option value="1">User</option>
-                </select>
-            </c:if>
             
             <f:facet name="footer">
                 <p:commandButton value="Register" actionListener="#{userController.edit()}"/>

@@ -106,7 +106,7 @@ public class UserController {
     else {
       System.out.println("user non existant");
       loggedIn = true;
-      User newUser = new User(username, password, User.Roles.Admin);
+      User newUser = new User(username, password, 0);
 
       User addeduser = Add(newUser);
       session.setAttribute("user_id", addeduser.Getid());
@@ -201,5 +201,55 @@ public class UserController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void edit() {
+
+    RequestContext context = RequestContext.getCurrentInstance();
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    FacesMessage message = null;
+
+    if (username == null || password == null)
+    {
+      try {
+        message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Invalid informations", "Invalid credentials");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("editProfile.xhtml");
+        return;
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    User user = getUserFromLogin(
+            (String)session.getAttribute("user_login"));
+
+    if (user != null) {
+      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
+      User newUser = new User(username, password, 0);
+      User addeduser = Add(newUser);
+      session.setAttribute("user_id", addeduser.Getid());
+      session.setAttribute("user_login", addeduser.Getlogin());
+      session.setAttribute("user_role", addeduser.Getrole());
+      session.setAttribute("user_password", addeduser.GetPassword());
+      try {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("register.xhtml");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+
+      message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration Error", "Invalid credentials");
+      try {
+
+        FacesContext.getCurrentInstance().getExternalContext().redirect("profile.xhtml");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    //FacesContext.getCurrentInstance().addMessage(null, message);
+    //context.addCallbackParam("loggedIn", loggedIn);
   }
 }
