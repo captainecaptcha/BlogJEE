@@ -17,7 +17,9 @@
         <div>
             <a href="blogs.xhtml">Blogs</a>
             <a href="profile.xhtml">Profile</a>
-            <a href="index.xhtml">Logout</a>
+            <h:form>
+                <h:commandLink name="index" value="Logout" action="#{userController.disconnect()}" />
+            </h:form>
         </div>
 
         <div id="content">

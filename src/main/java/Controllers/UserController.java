@@ -286,4 +286,19 @@ public class UserController {
     //FacesContext.getCurrentInstance().addMessage(null, message);
     //context.addCallbackParam("loggedIn", loggedIn);
   }
+
+  public void disconnect() {
+
+    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    session.setAttribute("user_id", null);
+    session.setAttribute("user_login", null);
+    session.setAttribute("user_role", null);
+    session.setAttribute("user_password", null);
+    session.setAttribute("user", null);
+    try {
+      FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
