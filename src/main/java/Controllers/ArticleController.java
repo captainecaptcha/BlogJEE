@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Maximilien on 10/07/2017.
  */
 @ApplicationScoped
-@Named("ArticleController")
+@Named("articleController")
 public class ArticleController {
   @Inject
   ArticleService articleService;

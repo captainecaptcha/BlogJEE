@@ -16,11 +16,50 @@ public class Blog {
     @Column
     private String name;
 
+    @Column
+    private boolean isArchived;
+
     @ManyToOne
     private User user;
 
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "blog")
     private List<Article> articles;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(boolean archived) {
+        isArchived = archived;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
 
     @Override
     public String toString() {

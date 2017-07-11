@@ -14,8 +14,14 @@
 </head>
 <body>
 <h:form>
+    <h:panelGrid columns="2">
+        <h:outputLabel>New blog:</h:outputLabel>
+        <h:inputText value="#{blogController.name}"/>
+        <h:commandButton value="Create" actionListener="#{BlogController.Add(session.getAttribute('user_id'), blogController.name)}"/>
+    </h:panelGrid></h:form>
+<h:form>
     <c:forEach var="item" items="#{BlogController.ListFromUser(session.getAttribute('user_id'))}">
-        <h:commandButton value="#{item}" actionListener="#{BlogController.showBlogs(item)}"/>
+        <h:commandButton value="#{item.name}" actionListener="#{BlogController.showBlogs(item)}"/>
     </c:forEach>
 </h:form>
 </body>
