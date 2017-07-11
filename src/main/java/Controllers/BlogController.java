@@ -17,12 +17,13 @@ public class BlogController {
     @Inject
     BlogService blogService;
 
-    public void Add(User user, String name)
+    public Blog Add(User user, String name)
     {
         Blog blog = new Blog();
         blog.setName(name);
         blog.setUser(user);
-        blogService.Add(blog);
+        this.name = "";
+        return blogService.Add(blog);
     }
 
     private String name;
