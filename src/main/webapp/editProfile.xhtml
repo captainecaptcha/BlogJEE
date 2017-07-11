@@ -13,7 +13,6 @@
     <p:dialog header="Edit Profile" widgetVar="dlg" resizable="false">
         <h:panelGrid columns="2" cellpadding="5">
 
-            <h:outputText value="#{session.getAttribute('user_role')}"></h:outputText>
             <h:outputLabel for="username" value="Username:" />
             <p:inputText id="username"  required="true" label="username" value="#{userController.username}"/>
             <h:outputLabel for="name" value="Password:" />
